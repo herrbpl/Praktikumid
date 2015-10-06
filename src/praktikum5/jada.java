@@ -16,15 +16,21 @@ public class jada {
 //		jada('2', mitu);
 //		String aa = askName();
 	
-		double[][] Mat = {{0.2, 0.3, 0.4}, {0.5,0.3,0.2}};
-		double[][] Mat2 = {{0.2, 0.3, 0.4}, {0.5,0.3,0.2}};
+		double[][] Mat = {
+					{1, 2, 3}, 
+					{4,5,6}
+					};
+		double[][] Mat2 = {
+					{7, 9, 11}, 
+					{8,10,12}
+					};
 		
 		double[][] t = transpose(Mat);
 		
 		System.out.println(dump(Mat));
 		System.out.println(dump(transpose(Mat)));
 		
-		double[][] Result = dot(transpose(Mat), Mat2);
+		double[][] Result = dot(Mat, transpose(Mat2));
 		
 //		double[][] Result1 = dot(100.0, Mat2);
 //		
@@ -33,8 +39,8 @@ public class jada {
 //		System.out.println(Result1.length);
 //		
 //		
-//		String s = dump(Result1);
-//		System.out.println(s);
+		String s = dump(Result);
+		System.out.println(s);
 		
 	}
 
@@ -71,25 +77,28 @@ public class jada {
 	}
 
 
-	private static double[][] dot(double[][] mat, double[][] mat2) {
+	public static double[][] dot(double[][] m1, double[][] m2) {
+        int m1ColLength = m1[0].length; // m1 columns length
+        int m2RowLength = m2.length;    // m2 rows length
+        if(m1ColLength != m2RowLength) return null; // matrix multiplication is not possible
+        int mRRowLength = m1.length;    // m result rows length
+        int mRColLength = m2[0].length; // m result columns length
+        double[][] mResult = new double[mRRowLength][mRColLength];
+        for(int i = 0; i < mRRowLength; i++) {         // rows from m1
+            for(int j = 0; j < mRColLength; j++) {     // columns from m2
+                for(int k = 0; k < m1ColLength; k++) { // columns from m1
+                    mResult[i][j] += m1[i][k] * m2[k][j];
+                }
+            }
+        }
+        return mResult;
+    }
+
+
+	private static String dimensions(double[][] mat) {
 		// TODO Auto-generated method stub
-		int w1 = mat.length;
-		int h1 = mat2[0].length;
-		
-		int w2 = mat[0].length;
-		int h2 = mat2.length;
-		
-		
-		if (w1 != h1) {
-			throw new IllegalArgumentException("Matrix1 x must be of same as Matrix2 y");				
-		}
-		System.out.format("%d x %d\n", w1, h1);
-		double[][] Result = new double[w2][h2];
-		//Result.length = mat.length;
-		
-		
-		
-		return Result;
+		String s = String.format("%d x %d", mat.length, mat[0].length);
+		return s;
 	}
 
 
