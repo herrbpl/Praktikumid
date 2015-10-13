@@ -1,6 +1,7 @@
 package praktikum5;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.security.InvalidParameterException;
 import java.text.Format;
 
 import lib.TextIO;
@@ -11,20 +12,12 @@ public class jada {
 	
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		int mitu=12;
-//		jada('2', mitu);
-//		String aa = askName();
-	
-		double[][] Mat = {{0.2, 0.3, 0.4}, {0.5,0.3,0.2}};
-		double[][] Mat2 = {{0.2, 0.3, 0.4}, {0.5,0.3,0.2}};
 		
-		double[][] t = transpose(Mat);
-		
+		double[][] Mat = {{1, 2, 3}, {4,5,6}};
+		double[][] Mat2 = {{7, 9, 11}, {8,10,12}};
 		System.out.println(dump(Mat));
-		System.out.println(dump(transpose(Mat)));
-		
-		double[][] Result = dot(transpose(Mat), Mat2);
+		System.out.println(dump(transpose(Mat2)));
+		double[][] Result = dot(Mat, transpose(Mat2));
 		
 //		double[][] Result1 = dot(100.0, Mat2);
 //		
@@ -56,8 +49,11 @@ public class jada {
 
 
 	private static String dump(double[][] mat) {
+	
+		
 		// TODO Auto-generated method stub
 		String ret = "", comma="";
+		ret += String.format("%d rows, %d columns\n", mat.length, mat[0].length);
 		for (int i = 0; i < mat.length; i++) {
 			ret += "[";
 			comma="";
@@ -72,24 +68,37 @@ public class jada {
 
 
 	private static double[][] dot(double[][] mat, double[][] mat2) {
-		// TODO Auto-generated method stub
-		int w1 = mat.length;
-		int h1 = mat2[0].length;
 		
-		int w2 = mat[0].length;
-		int h2 = mat2.length;
+		/**
+		 * Maatriksi korrutamine
+		 * 
+		 * esimese maatriksi veerud, teise maatriksi read
+		 */
+		int Rows = mat.length; // rows of first matrix
+		int Columns = mat2[0].length; // columns of second matrix
 		
-		
-		if (w1 != h1) {
-			throw new IllegalArgumentException("Matrix1 x must be of same as Matrix2 y");				
+		if (Rows != Columns) {
+			throw new InvalidParameterException(String.format("Rows of first matrix (%d) and columns of second (%d) does not match", Rows, Columns ));
 		}
-		System.out.format("%d x %d\n", w1, h1);
-		double[][] Result = new double[w2][h2];
-		//Result.length = mat.length;
 		
+		double[Rows][Columns] Result;		
+		String s = "";
+		for (int row = 0; row < Rows; row++) {
+			
+			
+			for (int col = 0; col < Columns; col++) {
+				s = "";
+				for (int acol = 0; acol < mat[0].length; acol++) {
+					s += "+" + String.format("%f*%f", mat[row][acol], mat2[acol][col]);
+					
+					
+				}
+				System.out.println(s);
+			}
+			
+		}
 		
-		
-		return Result;
+		return null;
 	}
 
 
@@ -106,22 +115,5 @@ public class jada {
 		return Result;
 	}
 
-
-	private static String askName() {
-		// TODO Auto-generated method stub
-		System.out.println("Enter Name: ");
-		return TextIO.getlnString();
-	}
-
-
-	private static void jada(char c, int mitu) {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < mitu; i++) {
-			System.out.format("%s", c);
-		}
-		
-	}
-	
-	
 
 }
