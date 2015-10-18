@@ -81,7 +81,9 @@ public class jada {
 			throw new InvalidParameterException(String.format("Rows of first matrix (%d) and columns of second (%d) does not match", Rows, Columns ));
 		}
 		
-		double Result[Rows][Columns];		
+		double[][] Result; 	
+		Result = new double[Rows][Columns];
+		
 		String s = "";
 		for (int row = 0; row < Rows; row++) {
 			

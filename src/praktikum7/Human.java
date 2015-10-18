@@ -1,5 +1,5 @@
 package praktikum7;
-public class Human {
+public class Human implements Comparable<Human> {
 
 	public String name;
 	public int age;
@@ -29,5 +29,12 @@ public class Human {
 		// TODO Auto-generated method stub
 		return this.name;
 	}
+
+	@Override
+	public int compareTo(Human o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

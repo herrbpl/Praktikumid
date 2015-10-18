@@ -5,6 +5,6 @@ public class asker2 {
 		Athletes a = new Athletes();
 		a.gatherCrowd(true);
 		a.greet();
-	
+		System.out.println(a);
 	}
 }

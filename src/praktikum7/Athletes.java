@@ -2,6 +2,7 @@ package praktikum7;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -54,8 +55,16 @@ public class Athletes<T> extends Humans {
 		
 		// Sorteerime tulemuste järgi kahanevas järjekorras
 				
-		Collections.sort(this.humans, );
-		return "";
+		Collections.sort(this.humans );
+		String s = "";
+		for (Iterator iterator = humans.iterator(); iterator.hasNext();) {
+			
+			Human human = (Human) iterator.next();
+			s += human.toString()+"\n";
+			
+		}
+		
+		return s;
 	} 
 
 }

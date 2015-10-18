@@ -1,6 +1,6 @@
 package praktikum7;
 
-public class Athlete extends Human implements Comparable<Athlete> {
+public class Athlete extends Human  {
 	
 	private String name;
 	private Double result;
@@ -43,9 +43,17 @@ public class Athlete extends Human implements Comparable<Athlete> {
 	}
 
 	@Override
-	public int compareTo(Athlete o) {
+	public int compareTo(Human o) {
 		// TODO Auto-generated method stub
-		return -o.getResult().compareTo(this.getResult());		
+		if (o.getClass().equals(this.getClass())) {			
+			Athlete a = (Athlete)o;
+			return a.getResult().compareTo(this.getResult());	
+		} else {
+			
+			return super.compareTo(o);
+		}
+		
+				
 	}
 	
 }
